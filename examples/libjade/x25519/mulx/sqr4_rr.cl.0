@@ -1,0 +1,160 @@
+proc main (L0x7fffffffd960, L0x7fffffffd968, L0x7fffffffd970, L0x7fffffffd978, rdi) =
+{
+  true
+  &&
+  true
+}
+
+(* #! -> SP = 0x7fffffffd938 *)
+#! 0x7fffffffd938 = 0x7fffffffd938;
+(* mov    %rdi,(%rsp)                              #! EA = L0x7fffffffd8f8; PC = 0x5555555551ef *)
+mov L0x7fffffffd8f8 rdi;
+(* mov    (%rsi),%rdx                              #! EA = L0x7fffffffd960; Value = 0x00000000000000c2; PC = 0x5555555551f3 *)
+mov rdx L0x7fffffffd960;
+(* mov    0x8(%rsi),%r11                           #! EA = L0x7fffffffd968; Value = 0x00007fffffffd997; PC = 0x5555555551f6 *)
+mov r11 L0x7fffffffd968;
+(* mov    0x10(%rsi),%r13                          #! EA = L0x7fffffffd970; Value = 0x00007fffffffd996; PC = 0x5555555551fa *)
+mov r13 L0x7fffffffd970;
+(* mov    0x18(%rsi),%rbx                          #! EA = L0x7fffffffd978; Value = 0x00005555555555ed; PC = 0x5555555551fe *)
+mov rbx L0x7fffffffd978;
+(* xor    %rax,%rax                                #! PC = 0x555555555202 *)
+mov rax 0@uint64;
+clear carry;
+clear overflow;
+(* mulx   %rdx,%rsi,%rcx                           #! PC = 0x555555555205 *)
+mull rcx rsi rdx rdx;
+(* mulx   %r11,%r8,%rdi                            #! PC = 0x55555555520a *)
+mull rdi r8 rdx r11;
+(* mulx   %r13,%r10,%r9                            #! PC = 0x55555555520f *)
+mull r9 r10 rdx r13;
+(* adcx   %r10,%rdi                                #! PC = 0x555555555214 *)
+adcs carry rdi rdi r10 carry;
+(* mulx   %rbx,%rdx,%r10                           #! PC = 0x55555555521a *)
+mull r10 rdx rdx rbx;
+(* adcx   %rdx,%r9                                 #! PC = 0x55555555521f *)
+adcs carry r9 r9 rdx carry;
+(* mov    %r11,%rdx                                #! PC = 0x555555555225 *)
+mov rdx r11;
+(* mulx   %r13,%rbp,%r11                           #! PC = 0x555555555228 *)
+mull r11 rbp rdx r13;
+(* adox   %rbp,%r9                                 #! PC = 0x55555555522d *)
+adcs overflow r9 r9 rbp overflow;
+(* adcx   %r11,%r10                                #! PC = 0x555555555233 *)
+adcs carry r10 r10 r11 carry;
+(* mulx   %rbx,%rbp,%r11                           #! PC = 0x555555555239 *)
+mull r11 rbp rdx rbx;
+(* adox   %rbp,%r10                                #! PC = 0x55555555523e *)
+adcs overflow r10 r10 rbp overflow;
+(* mulx   %rdx,%r12,%rbp                           #! PC = 0x555555555244 *)
+mull rbp r12 rdx rdx;
+(* mov    %r13,%rdx                                #! PC = 0x555555555249 *)
+mov rdx r13;
+(* mulx   %rbx,%r14,%r13                           #! PC = 0x55555555524c *)
+mull r13 r14 rdx rbx;
+(* adcx   %r14,%r11                                #! PC = 0x555555555251 *)
+adcs carry r11 r11 r14 carry;
+(* adox   %rax,%r11                                #! PC = 0x555555555257 *)
+adcs overflow r11 r11 rax overflow;
+(* adcx   %rax,%r13                                #! PC = 0x55555555525d *)
+adcs carry r13 r13 rax carry;
+(* adox   %rax,%r13                                #! PC = 0x555555555263 *)
+adcs overflow r13 r13 rax overflow;
+(* mulx   %rdx,%r15,%r14                           #! PC = 0x555555555269 *)
+mull r14 r15 rdx rdx;
+(* mov    %rbx,%rdx                                #! PC = 0x55555555526e *)
+mov rdx rbx;
+(* mulx   %rdx,%rdx,%rbx                           #! PC = 0x555555555271 *)
+mull rbx rdx rdx rdx;
+(* adcx   %r8,%r8                                  #! PC = 0x555555555276 *)
+adcs carry r8 r8 r8 carry;
+(* adox   %rcx,%r8                                 #! PC = 0x55555555527c *)
+adcs overflow r8 r8 rcx overflow;
+(* adcx   %rdi,%rdi                                #! PC = 0x555555555282 *)
+adcs carry rdi rdi rdi carry;
+(* adox   %r12,%rdi                                #! PC = 0x555555555288 *)
+adcs overflow rdi rdi r12 overflow;
+(* adcx   %r9,%r9                                  #! PC = 0x55555555528e *)
+adcs carry r9 r9 r9 carry;
+(* adox   %rbp,%r9                                 #! PC = 0x555555555294 *)
+adcs overflow r9 r9 rbp overflow;
+(* adcx   %r10,%r10                                #! PC = 0x55555555529a *)
+adcs carry r10 r10 r10 carry;
+(* adox   %r15,%r10                                #! PC = 0x5555555552a0 *)
+adcs overflow r10 r10 r15 overflow;
+(* adcx   %r11,%r11                                #! PC = 0x5555555552a6 *)
+adcs carry r11 r11 r11 carry;
+(* adox   %r14,%r11                                #! PC = 0x5555555552ac *)
+adcs overflow r11 r11 r14 overflow;
+(* adcx   %r13,%r13                                #! PC = 0x5555555552b2 *)
+adcs carry r13 r13 r13 carry;
+(* adox   %rdx,%r13                                #! PC = 0x5555555552b8 *)
+adcs overflow r13 r13 rdx overflow;
+(* adcx   %rax,%rbx                                #! PC = 0x5555555552be *)
+adcs carry rbx rbx rax carry;
+(* adox   %rax,%rbx                                #! PC = 0x5555555552c4 *)
+adcs overflow rbx rbx rax overflow;
+(* mov    $0x26,%rdx                               #! PC = 0x5555555552ca *)
+mov rdx 0x26@uint64;
+(* mulx   %r10,%r10,%rcx                           #! PC = 0x5555555552d1 *)
+mull rcx r10 rdx r10;
+(* adox   %r10,%rsi                                #! PC = 0x5555555552d6 *)
+adcs overflow rsi rsi r10 overflow;
+(* adcx   %rcx,%r8                                 #! PC = 0x5555555552dc *)
+adcs carry r8 r8 rcx carry;
+(* mulx   %r11,%r10,%rcx                           #! PC = 0x5555555552e2 *)
+mull rcx r10 rdx r11;
+(* adox   %r10,%r8                                 #! PC = 0x5555555552e7 *)
+adcs overflow r8 r8 r10 overflow;
+(* adcx   %rcx,%rdi                                #! PC = 0x5555555552ed *)
+adcs carry rdi rdi rcx carry;
+(* mulx   %r13,%r10,%rcx                           #! PC = 0x5555555552f3 *)
+mull rcx r10 rdx r13;
+(* adox   %r10,%rdi                                #! PC = 0x5555555552f8 *)
+adcs overflow rdi rdi r10 overflow;
+(* adcx   %rcx,%r9                                 #! PC = 0x5555555552fe *)
+adcs carry r9 r9 rcx carry;
+(* mulx   %rbx,%rdx,%rcx                           #! PC = 0x555555555304 *)
+mull rcx rdx rdx rbx;
+(* adox   %rdx,%r9                                 #! PC = 0x555555555309 *)
+adcs overflow r9 r9 rdx overflow;
+(* adcx   %rax,%rcx                                #! PC = 0x55555555530f *)
+adcs carry rcx rcx rax carry;
+(* adox   %rax,%rcx                                #! PC = 0x555555555315 *)
+adcs overflow rcx rcx rax overflow;
+(* imul   $0x26,%rcx,%rcx                          #! PC = 0x55555555531b *)
+mul rcx 0x26@uint64 rcx;
+(* add    %rcx,%rsi                                #! PC = 0x55555555531f *)
+adds carry rsi rsi rcx;
+(* adc    %rax,%r8                                 #! PC = 0x555555555322 *)
+adcs carry r8 r8 rax carry;
+(* adc    %rax,%rdi                                #! PC = 0x555555555325 *)
+adcs carry rdi rdi rax carry;
+(* adc    %rax,%r9                                 #! PC = 0x555555555328 *)
+adcs carry r9 r9 rax carry;
+(* sbb    %rax,%rax                                #! PC = 0x55555555532b *)
+sbbs carry rax rax rax carry;
+(* and    $0x26,%rax                               #! PC = 0x55555555532e *)
+and rax@uint64 rax 0x26@uint64;
+(* add    %rax,%rsi                                #! PC = 0x555555555332 *)
+adds carry rsi rsi rax;
+(* mov    (%rsp),%rax                              #! EA = L0x7fffffffd8f8; Value = 0x00007fffffffd940; PC = 0x555555555335 *)
+mov rax L0x7fffffffd8f8;
+(* mov    %rsi,(%rax)                              #! EA = L0x7fffffffd940; PC = 0x555555555339 *)
+mov L0x7fffffffd940 rsi;
+(* mov    %r8,0x8(%rax)                            #! EA = L0x7fffffffd948; PC = 0x55555555533c *)
+mov L0x7fffffffd948 r8;
+(* mov    %rdi,0x10(%rax)                          #! EA = L0x7fffffffd950; PC = 0x555555555340 *)
+mov L0x7fffffffd950 rdi;
+(* mov    %r9,0x18(%rax)                           #! EA = L0x7fffffffd958; PC = 0x555555555344 *)
+mov L0x7fffffffd958 r9;
+(* #! <- SP = 0x7fffffffd938 *)
+#! 0x7fffffffd938 = 0x7fffffffd938;
+(* #retq                                           #! PC = 0x55555555536b *)
+#retq                                           #! 0x55555555536b = 0x55555555536b;
+
+{
+  true
+  &&
+  true
+}
+

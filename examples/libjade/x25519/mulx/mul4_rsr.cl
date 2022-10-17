@@ -245,7 +245,7 @@ and rsi@uint64 rsi 0x26@uint64;
 
 assert true && or [ and [lcarry=0@1, rsi=0@64],
                     and [lcarry=1@1, rsi=0x26@64]];
-assume eq rsi (lcarry * 0x26) && true;
+assume eq rsi (lcarry * 0x26) && true; (** CHECKME **)
 
 
 (* add    %rsi,%r9                                 #! PC = 0x555555555389 *)
