@@ -38,6 +38,8 @@
 #! imul $1c, $2v, $3v -> mul $3v $1c@uint64 $2v
 #! mul $1v -> mull rdx rax rax $1v
 
+# TODO CHECKME mul changes cf / of
+
 # mul4_rss:
 # %rdi = 0x7fffffffd940
 # %rsi = 0x7fffffffd960
