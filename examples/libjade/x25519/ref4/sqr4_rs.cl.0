@@ -1,0 +1,234 @@
+proc main (L0x7fffffffd960, L0x7fffffffd968, L0x7fffffffd970, L0x7fffffffd978, rdi) =
+{
+  true
+  &&
+  true
+}
+
+(* #! -> SP = 0x7fffffffd938 *)
+#! 0x7fffffffd938 = 0x7fffffffd938;
+(* mov    %rdi,(%rsp)                              #! EA = L0x7fffffffd8e8; PC = 0x5555555551e5 *)
+mov L0x7fffffffd8e8 rdi;
+(* mov    (%rsi),%rax                              #! EA = L0x7fffffffd960; Value = 0x00000000000000c2; PC = 0x5555555551e9 *)
+mov rax L0x7fffffffd960;
+(* mov    0x8(%rsi),%rcx                           #! EA = L0x7fffffffd968; Value = 0x00007fffffffd997; PC = 0x5555555551ec *)
+mov rcx L0x7fffffffd968;
+(* mov    0x10(%rsi),%rdx                          #! EA = L0x7fffffffd970; Value = 0x00007fffffffd996; PC = 0x5555555551f0 *)
+mov rdx L0x7fffffffd970;
+(* mov    0x18(%rsi),%rsi                          #! EA = L0x7fffffffd978; Value = 0x000055555555569d; PC = 0x5555555551f4 *)
+mov rsi L0x7fffffffd978;
+(* mov    %rax,0x8(%rsp)                           #! EA = L0x7fffffffd8f0; PC = 0x5555555551f8 *)
+mov L0x7fffffffd8f0 rax;
+(* mov    %rcx,0x10(%rsp)                          #! EA = L0x7fffffffd8f8; PC = 0x5555555551fd *)
+mov L0x7fffffffd8f8 rcx;
+(* mov    %rdx,0x18(%rsp)                          #! EA = L0x7fffffffd900; PC = 0x555555555202 *)
+mov L0x7fffffffd900 rdx;
+(* mov    %rsi,0x20(%rsp)                          #! EA = L0x7fffffffd908; PC = 0x555555555207 *)
+mov L0x7fffffffd908 rsi;
+(* mov    $0x0,%r8                                 #! PC = 0x55555555520c *)
+mov r8 0x0@uint64;
+(* mov    $0x0,%rcx                                #! PC = 0x555555555213 *)
+mov rcx 0x0@uint64;
+(* mov    0x10(%rsp),%rax                          #! EA = L0x7fffffffd8f8; Value = 0x00007fffffffd997; PC = 0x55555555521a *)
+mov rax L0x7fffffffd8f8;
+(* mulq   0x8(%rsp)                                #! EA = L0x7fffffffd8f0; PC = 0x55555555521f *)
+mull rdx rax rax L0x7fffffffd8f0;
+(* mov    %rax,%r12                                #! PC = 0x555555555224 *)
+mov r12 rax;
+(* mov    %rdx,%r11                                #! PC = 0x555555555227 *)
+mov r11 rdx;
+(* mov    0x18(%rsp),%rax                          #! EA = L0x7fffffffd900; Value = 0x00007fffffffd996; PC = 0x55555555522a *)
+mov rax L0x7fffffffd900;
+(* mulq   0x10(%rsp)                               #! EA = L0x7fffffffd8f8; PC = 0x55555555522f *)
+mull rdx rax rax L0x7fffffffd8f8;
+(* mov    %rax,%rbp                                #! PC = 0x555555555234 *)
+mov rbp rax;
+(* mov    %rdx,%rdi                                #! PC = 0x555555555237 *)
+mov rdi rdx;
+(* mov    0x20(%rsp),%rax                          #! EA = L0x7fffffffd908; Value = 0x000055555555569d; PC = 0x55555555523a *)
+mov rax L0x7fffffffd908;
+(* mulq   0x18(%rsp)                               #! EA = L0x7fffffffd900; PC = 0x55555555523f *)
+mull rdx rax rax L0x7fffffffd900;
+(* mov    %rax,%rbx                                #! PC = 0x555555555244 *)
+mov rbx rax;
+(* mov    %rdx,%rsi                                #! PC = 0x555555555247 *)
+mov rsi rdx;
+(* mov    0x18(%rsp),%rax                          #! EA = L0x7fffffffd900; Value = 0x00007fffffffd996; PC = 0x55555555524a *)
+mov rax L0x7fffffffd900;
+(* mulq   0x8(%rsp)                                #! EA = L0x7fffffffd8f0; PC = 0x55555555524f *)
+mull rdx rax rax L0x7fffffffd8f0;
+(* add    %rax,%r11                                #! PC = 0x555555555254 *)
+adds carry r11 r11 rax;
+(* adc    %rdx,%rbp                                #! PC = 0x555555555257 *)
+adcs carry rbp rbp rdx carry;
+(* adc    %rcx,%rdi                                #! PC = 0x55555555525a *)
+adcs carry rdi rdi rcx carry;
+(* mov    0x20(%rsp),%rax                          #! EA = L0x7fffffffd908; Value = 0x000055555555569d; PC = 0x55555555525d *)
+mov rax L0x7fffffffd908;
+(* mulq   0x10(%rsp)                               #! EA = L0x7fffffffd8f8; PC = 0x555555555262 *)
+mull rdx rax rax L0x7fffffffd8f8;
+(* add    %rax,%rdi                                #! PC = 0x555555555267 *)
+adds carry rdi rdi rax;
+(* adc    %rdx,%rbx                                #! PC = 0x55555555526a *)
+adcs carry rbx rbx rdx carry;
+(* adc    %rcx,%rsi                                #! PC = 0x55555555526d *)
+adcs carry rsi rsi rcx carry;
+(* mov    0x20(%rsp),%rax                          #! EA = L0x7fffffffd908; Value = 0x000055555555569d; PC = 0x555555555270 *)
+mov rax L0x7fffffffd908;
+(* mulq   0x8(%rsp)                                #! EA = L0x7fffffffd8f0; PC = 0x555555555275 *)
+mull rdx rax rax L0x7fffffffd8f0;
+(* add    %rax,%rbp                                #! PC = 0x55555555527a *)
+adds carry rbp rbp rax;
+(* adc    %rdx,%rdi                                #! PC = 0x55555555527d *)
+adcs carry rdi rdi rdx carry;
+(* adc    %rcx,%rbx                                #! PC = 0x555555555280 *)
+adcs carry rbx rbx rcx carry;
+(* adc    %rcx,%rsi                                #! PC = 0x555555555283 *)
+adcs carry rsi rsi rcx carry;
+(* adc    %rcx,%r8                                 #! PC = 0x555555555286 *)
+adcs carry r8 r8 rcx carry;
+(* add    %r12,%r12                                #! PC = 0x555555555289 *)
+adds carry r12 r12 r12;
+(* adc    %r11,%r11                                #! PC = 0x55555555528c *)
+adcs carry r11 r11 r11 carry;
+(* adc    %rbp,%rbp                                #! PC = 0x55555555528f *)
+adcs carry rbp rbp rbp carry;
+(* adc    %rdi,%rdi                                #! PC = 0x555555555292 *)
+adcs carry rdi rdi rdi carry;
+(* adc    %rbx,%rbx                                #! PC = 0x555555555295 *)
+adcs carry rbx rbx rbx carry;
+(* adc    %rsi,%rsi                                #! PC = 0x555555555298 *)
+adcs carry rsi rsi rsi carry;
+(* adc    %r8,%r8                                  #! PC = 0x55555555529b *)
+adcs carry r8 r8 r8 carry;
+(* mov    0x8(%rsp),%rax                           #! EA = L0x7fffffffd8f0; Value = 0x00000000000000c2; PC = 0x55555555529e *)
+mov rax L0x7fffffffd8f0;
+(* mulq   0x8(%rsp)                                #! EA = L0x7fffffffd8f0; PC = 0x5555555552a3 *)
+mull rdx rax rax L0x7fffffffd8f0;
+(* mov    %rax,%rcx                                #! PC = 0x5555555552a8 *)
+mov rcx rax;
+(* mov    %rdx,%r9                                 #! PC = 0x5555555552ab *)
+mov r9 rdx;
+(* mov    0x10(%rsp),%rax                          #! EA = L0x7fffffffd8f8; Value = 0x00007fffffffd997; PC = 0x5555555552ae *)
+mov rax L0x7fffffffd8f8;
+(* mulq   0x10(%rsp)                               #! EA = L0x7fffffffd8f8; PC = 0x5555555552b3 *)
+mull rdx rax rax L0x7fffffffd8f8;
+(* mov    %rax,%r10                                #! PC = 0x5555555552b8 *)
+mov r10 rax;
+(* mov    %rdx,%r13                                #! PC = 0x5555555552bb *)
+mov r13 rdx;
+(* mov    0x18(%rsp),%rax                          #! EA = L0x7fffffffd900; Value = 0x00007fffffffd996; PC = 0x5555555552be *)
+mov rax L0x7fffffffd900;
+(* mulq   0x18(%rsp)                               #! EA = L0x7fffffffd900; PC = 0x5555555552c3 *)
+mull rdx rax rax L0x7fffffffd900;
+(* add    %r9,%r12                                 #! PC = 0x5555555552c8 *)
+adds carry r12 r12 r9;
+(* adc    %r10,%r11                                #! PC = 0x5555555552cb *)
+adcs carry r11 r11 r10 carry;
+(* adc    %r13,%rbp                                #! PC = 0x5555555552ce *)
+adcs carry rbp rbp r13 carry;
+(* adc    %rax,%rdi                                #! PC = 0x5555555552d1 *)
+adcs carry rdi rdi rax carry;
+(* adc    %rdx,%rbx                                #! PC = 0x5555555552d4 *)
+adcs carry rbx rbx rdx carry;
+(* adc    $0x0,%rsi                                #! PC = 0x5555555552d7 *)
+adcs carry rsi rsi 0x0@uint64 carry;
+(* adc    $0x0,%r8                                 #! PC = 0x5555555552db *)
+adcs carry r8 r8 0x0@uint64 carry;
+(* mov    0x20(%rsp),%rax                          #! EA = L0x7fffffffd908; Value = 0x000055555555569d; PC = 0x5555555552df *)
+mov rax L0x7fffffffd908;
+(* mulq   0x20(%rsp)                               #! EA = L0x7fffffffd908; PC = 0x5555555552e4 *)
+mull rdx rax rax L0x7fffffffd908;
+(* add    %rax,%rsi                                #! PC = 0x5555555552e9 *)
+adds carry rsi rsi rax;
+(* adc    %rdx,%r8                                 #! PC = 0x5555555552ec *)
+adcs carry r8 r8 rdx carry;
+(* mov    $0x26,%r9                                #! PC = 0x5555555552ef *)
+mov r9 0x26@uint64;
+(* mov    %rdi,%rax                                #! PC = 0x5555555552f6 *)
+mov rax rdi;
+(* mul    %r9                                      #! PC = 0x5555555552f9 *)
+mull rdx rax rax r9;
+(* mov    %rax,%rdi                                #! PC = 0x5555555552fc *)
+mov rdi rax;
+(* mov    %rdx,%r10                                #! PC = 0x5555555552ff *)
+mov r10 rdx;
+(* mov    %rbx,%rax                                #! PC = 0x555555555302 *)
+mov rax rbx;
+(* mul    %r9                                      #! PC = 0x555555555305 *)
+mull rdx rax rax r9;
+(* add    %rax,%r10                                #! PC = 0x555555555308 *)
+adds carry r10 r10 rax;
+(* mov    $0x0,%rbx                                #! PC = 0x55555555530b *)
+mov rbx 0x0@uint64;
+(* mov    %rsi,%rax                                #! PC = 0x555555555312 *)
+mov rax rsi;
+(* adc    %rdx,%rbx                                #! PC = 0x555555555315 *)
+adcs carry rbx rbx rdx carry;
+(* mul    %r9                                      #! PC = 0x555555555318 *)
+mull rdx rax rax r9;
+(* add    %rax,%rbx                                #! PC = 0x55555555531b *)
+adds carry rbx rbx rax;
+(* mov    $0x0,%rsi                                #! PC = 0x55555555531e *)
+mov rsi 0x0@uint64;
+(* mov    %r8,%rax                                 #! PC = 0x555555555325 *)
+mov rax r8;
+(* adc    %rdx,%rsi                                #! PC = 0x555555555328 *)
+adcs carry rsi rsi rdx carry;
+(* mul    %r9                                      #! PC = 0x55555555532b *)
+mull rdx rax rax r9;
+(* add    %rax,%rsi                                #! PC = 0x55555555532e *)
+adds carry rsi rsi rax;
+(* mov    $0x0,%rax                                #! PC = 0x555555555331 *)
+mov rax 0x0@uint64;
+(* adc    %rdx,%rax                                #! PC = 0x555555555338 *)
+adcs carry rax rax rdx carry;
+(* add    %rcx,%rdi                                #! PC = 0x55555555533b *)
+adds carry rdi rdi rcx;
+(* adc    %r12,%r10                                #! PC = 0x55555555533e *)
+adcs carry r10 r10 r12 carry;
+(* adc    %r11,%rbx                                #! PC = 0x555555555341 *)
+adcs carry rbx rbx r11 carry;
+(* adc    %rbp,%rsi                                #! PC = 0x555555555344 *)
+adcs carry rsi rsi rbp carry;
+(* adc    $0x0,%rax                                #! PC = 0x555555555347 *)
+adcs carry rax rax 0x0@uint64 carry;
+(* imul   $0x26,%rax,%rax                          #! PC = 0x55555555534b *)
+mul rax 0x26@uint64 rax;
+(* mov    $0x0,%rcx                                #! PC = 0x55555555534f *)
+mov rcx 0x0@uint64;
+(* add    %rax,%rdi                                #! PC = 0x555555555356 *)
+adds carry rdi rdi rax;
+(* adc    %rcx,%r10                                #! PC = 0x555555555359 *)
+adcs carry r10 r10 rcx carry;
+(* adc    %rcx,%rbx                                #! PC = 0x55555555535c *)
+adcs carry rbx rbx rcx carry;
+(* adc    %rcx,%rsi                                #! PC = 0x55555555535f *)
+adcs carry rsi rsi rcx carry;
+(* adc    %rcx,%rcx                                #! PC = 0x555555555362 *)
+adcs carry rcx rcx rcx carry;
+(* imul   $0x26,%rcx,%rax                          #! PC = 0x555555555365 *)
+mul rax 0x26@uint64 rcx;
+(* add    %rax,%rdi                                #! PC = 0x555555555369 *)
+adds carry rdi rdi rax;
+(* mov    (%rsp),%rax                              #! EA = L0x7fffffffd8e8; Value = 0x00007fffffffd940; PC = 0x55555555536c *)
+mov rax L0x7fffffffd8e8;
+(* mov    %rdi,(%rax)                              #! EA = L0x7fffffffd940; PC = 0x555555555370 *)
+mov L0x7fffffffd940 rdi;
+(* mov    %r10,0x8(%rax)                           #! EA = L0x7fffffffd948; PC = 0x555555555373 *)
+mov L0x7fffffffd948 r10;
+(* mov    %rbx,0x10(%rax)                          #! EA = L0x7fffffffd950; PC = 0x555555555377 *)
+mov L0x7fffffffd950 rbx;
+(* mov    %rsi,0x18(%rax)                          #! EA = L0x7fffffffd958; PC = 0x55555555537b *)
+mov L0x7fffffffd958 rsi;
+(* #! <- SP = 0x7fffffffd938 *)
+#! 0x7fffffffd938 = 0x7fffffffd938;
+(* #retq                                           #! PC = 0x555555555398 *)
+#retq                                           #! 0x555555555398 = 0x555555555398;
+
+{
+  true
+  &&
+  true
+}
+
