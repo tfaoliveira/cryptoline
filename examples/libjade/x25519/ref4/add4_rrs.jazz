@@ -1,0 +1,50 @@
+inline fn __add4_rrs(reg u64[4] f, stack u64[4] g) -> reg u64[4]
+{
+  inline int i;
+  reg bool cf;
+  reg u64[4] h;
+  reg u64 z;
+
+  ?{}, z = #set0();
+
+  h = #copy(f);
+
+  cf, h[0] += g[0];
+  for i=1 to 4
+  { cf, h[i] += g[i] + cf; }
+
+  _, z -= z - cf;
+  z &= 38;
+
+  cf, h[0] += z;
+  for i=1 to 4
+  { cf, h[i] += 0 + cf; }
+
+  _, z -= z - cf;
+  z &= 38;
+  h[0] += z;
+
+  return h;
+}
+
+export fn add4_rrs(reg u64 rp fp gp)
+{
+  inline int i;
+  reg u64[4] r f g;
+  stack u64[4] gs;
+  stack u64 rps;
+
+  rps = rp;
+  for i=0 to 4
+  { f[i] = [fp + 8*i];
+    g[i] = [gp + 8*i];
+  }
+
+  gs = #copy(g);
+
+  r = __add4_rrs(f, gs);
+
+  rp = rps;
+  for i=0 to 4
+  { [rp + 8*i] = r[i]; }
+}
