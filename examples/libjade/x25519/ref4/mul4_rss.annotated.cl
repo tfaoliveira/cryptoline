@@ -1,21 +1,21 @@
 (*
-Parsing CryptoLine file:		[OK]		0.003154 seconds
-Checking well-formedness:		[OK]		0.001372 seconds
-Transforming to SSA form:		[OK]		0.000206 seconds
-Normalizing specification:		[OK]		0.000267 seconds
-Rewriting assignments:			[OK]		0.000273 seconds
+Parsing CryptoLine file:		[OK]		0.002034 seconds
+Checking well-formedness:		[OK]		0.000920 seconds
+Transforming to SSA form:		[OK]		0.000149 seconds
+Normalizing specification:		[OK]		0.000200 seconds
+Rewriting assignments:			[OK]		0.000217 seconds
 Verifying program safety:		
 	 Cut 0
 	     Round 1 (2 safety conditions, timeout = 300 seconds)
 		 Safety condition #0	[OK]
 		 Safety condition #1	[OK]
-	 Overall			[OK]		1.639502 seconds
-Verifying range assertions:		[OK]		9.192224 seconds
-Verifying range specification:		[OK]		0.001847 seconds
-Rewriting value-preserved casting:	[OK]		0.000035 seconds
-Verifying algebraic assertions:		[OK]		0.001542 seconds
-Verifying algebraic specification:	[OK]		0.064394 seconds
-Verification result:			[OK]		10.905242 seconds
+	 Overall			[OK]		1.643628 seconds
+Verifying range assertions:		[OK]		9.076184 seconds
+Verifying range specification:		[OK]		0.001366 seconds
+Rewriting value-preserved casting:	[OK]		0.000040 seconds
+Verifying algebraic assertions:		[OK]		0.104451 seconds
+Verifying algebraic specification:	[OK]		0.062597 seconds
+Verification result:			[OK]		10.892181 seconds
 *)
 
 proc main (uint64 f0, uint64 f1, uint64 f2, uint64 f3,
@@ -102,6 +102,10 @@ mov r8 rax;                                        (** z[0] = l; **)
 (* mov    %rdx,%rcx                                #! PC = 0x555555555244 *)
 mov rcx rdx;                                       (** z[0] = l; **)
 
+assert eq (limbs 64 [r8, rcx, rdi, rbp, rsi, rbx, r12, r11])
+          (limbs 64 [f0] * limbs 64 [g0])
+       &&
+       true;
 
 (* mov    0x30(%rsp),%rax                          #! EA = L0x7fffffffd900; Value = 0x0000555555555450; PC = 0x555555555247 *)
 mov rax L0x7fffffffd900;                           (** y[j=1] = ya[j=1]; **)
@@ -114,6 +118,11 @@ adcs carry rdi rdi rdx carry;
 
 assert true && carry=0@1;
 assume carry=0 && true;
+
+assert eq (limbs 64 [r8, rcx, rdi, rbp, rsi, rbx, r12, r11])
+          (limbs 64 [f0] * limbs 64 [g0, g1])
+       &&
+       true;
 
 (* mov    0x38(%rsp),%rax                          #! EA = L0x7fffffffd908; Value = 0x0000000000000000; PC = 0x555555555255 *)
 mov rax L0x7fffffffd908;
@@ -128,6 +137,12 @@ adcs carry rbp rbp rdx carry;
 assert true && carry=0@1;
 assume carry=0 && true;
 
+assert eq (limbs 64 [r8, rcx, rdi, rbp, rsi, rbx, r12, r11])
+          (limbs 64 [f0] * limbs 64 [g0, g1, g2])
+       &&
+       true;
+
+
 (* mov    0x40(%rsp),%rax                          #! EA = L0x7fffffffd910; Value = 0x0000555555555060; PC = 0x555555555263 *)
 mov rax L0x7fffffffd910;
 (* mul    %r9                                      #! PC = 0x555555555268 *)
@@ -140,6 +155,11 @@ adcs carry rsi rsi rdx carry;
 
 assert true && carry=0@1;
 assume carry=0 && true;
+
+assert eq (limbs 64 [r8, rcx, rdi, rbp, rsi, rbx, r12, r11])
+          (limbs 64 [f0] * limbs 64 [g0, g1, g2, g3])
+       &&
+       true;
 
 
 (* mov    0x10(%rsp),%r9                           #! EA = L0x7fffffffd8e0; Value = 0x00007fffffffd997; PC = 0x555555555271 *)
@@ -423,6 +443,13 @@ adcs carry r11 r11 rdx carry;
 
 assert true && carry=0@1;
 assume carry=0 && true;
+
+
+assert eqmod (limbs 64 [r8, rcx, rdi, rbp, rsi, rbx, r12, r11])
+             (limbs 64 [f0, f1, f2, f3] * limbs 64 [g0, g1, g2, g3])
+             ((2**255)-19)
+       &&
+       true;
 
 (* mov    $0x26,%r9                                #! PC = 0x5555555553a6 *)
 mov r9 0x26@uint64;
