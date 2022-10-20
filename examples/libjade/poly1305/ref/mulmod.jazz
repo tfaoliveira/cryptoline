@@ -1,0 +1,82 @@
+/*
+ h0 + h1 + h2 * r0 + r1
+
+ h0 * r0
+ h1 * r1
+*/
+
+inline fn __mulmod(reg u64[3] h r) -> reg u64[3]
+{
+  reg bool cf;
+  reg u64 t0 t1 t2;
+  reg u64 rax rdx;
+
+  t2 = r[2];
+  t2 *= h[2];
+
+  h[2] *= r[0];
+
+  rax = r[0];
+  rdx, rax = rax * h[0];
+  t0 = rax;
+  t1 = rdx;
+
+  rax = r[0];
+  rdx, rax = rax * h[1];
+
+  cf, t1 += rax;
+  _ , h[2] += rdx + cf;
+
+  // [t0, t1, h2] = [h0, h1, h2] * [r0]
+
+  rax = r[2];
+  rdx, rax = rax * h[1]; // r2 * h1 
+  h[1] = rdx;
+  h[1] += t2;
+  t2 = rax;
+
+  rax = r[1];
+  rdx, rax = rax * h[0]; // 
+
+  cf, t0 += t2;
+  cf, t1 += rax + cf;
+  _ , h[2] += rdx + cf;
+
+  // eqmod [t0, t1, h2] ([h0, h1, h2] * [r0,r1])
+
+  h[0] = 0xfffffffffffffffc;
+    t2 = h[2]; 
+    t2 >>= 2;
+  h[0] &= h[2];
+
+  h[0] += t2;
+  h[2] &= 0x03;
+
+  cf, h[0] += t0;
+  cf, h[1] += t1 + cf;
+  _ , h[2] +=  0 + cf;
+
+  return h;
+}
+
+//
+
+export fn mulmod(reg u64 hp rp)
+{
+  inline int i;
+  reg u64[3] h r;
+  stack u64 hps;
+
+  for i=0 to 3
+  { h[i] = [hp + 8*i];
+    r[i] = [rp + 8*i];
+  }
+  hps = hp;
+
+  h = __mulmod(h, r);
+
+  hp = hps;
+  for i=0 to 3
+  { [hp + 8*i] = h[i]; }
+}
+
