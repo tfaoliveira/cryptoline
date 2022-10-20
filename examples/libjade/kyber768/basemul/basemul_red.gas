@@ -1,0 +1,67 @@
+#! %ymm$1c = %%ymm$1c
+#! (%rdi) = %%EA
+#! $1c(%rdi) = %%EA
+#! (%rsi) = %%EA
+#! $1c(%rsi) = %%EA
+#! (%rdx) = %%EA
+#! $1c(%rdx) = %%EA
+#! (%rcx) = %%EA
+#! $1c(%rcx) = %%EA
+
+# kyber/poly_ntt/poly_ntt.gas
+
+#! vmovdqu $1ea, $2ymm -> mov $2ymm_0000 $1ea;\nmov $2ymm_0001 $1ea[+2];\nmov $2ymm_0010 $1ea[+4];\nmov $2ymm_0011 $1ea[+6];\nmov $2ymm_0100 $1ea[+8];\nmov $2ymm_0101 $1ea[+10];\nmov $2ymm_0110 $1ea[+12];\nmov $2ymm_0111 $1ea[+14];\nmov $2ymm_1000 $1ea[+16];\nmov $2ymm_1001 $1ea[+18];\nmov $2ymm_1010 $1ea[+20];\nmov $2ymm_1011 $1ea[+22];\nmov $2ymm_1100 $1ea[+24];\nmov $2ymm_1101 $1ea[+26];\nmov $2ymm_1110 $1ea[+28];\nmov $2ymm_1111 $1ea[+30]
+
+#! vmovdqu $1ymm, $2ea -> mov $2ea $1ymm_0000;\nmov $2ea[+2] $1ymm_0001;\nmov $2ea[+4] $1ymm_0010;\nmov $2ea[+6] $1ymm_0011;\nmov $2ea[+8] $1ymm_0100;\nmov $2ea[+10] $1ymm_0101;\nmov $2ea[+12] $1ymm_0110;\nmov $2ea[+14] $1ymm_0111;\nmov $2ea[+16] $1ymm_1000;\nmov $2ea[+18] $1ymm_1001;\nmov $2ea[+20] $1ymm_1010;\nmov $2ea[+22] $1ymm_1011;\nmov $2ea[+24] $1ymm_1100;\nmov $2ea[+26] $1ymm_1101;\nmov $2ea[+28] $1ymm_1110;\nmov $2ea[+30] $1ymm_1111
+
+#! vpblendw \$0xaa, $2ymm, $1ymm, $3ymm -> mov $3ymm_0000 $1ymm_0000;\nmov $3ymm_0001 $2ymm_0001;\nmov $3ymm_0010 $1ymm_0010;\nmov $3ymm_0011 $2ymm_0011;\nmov $3ymm_0100 $1ymm_0100;\nmov $3ymm_0101 $2ymm_0101;\nmov $3ymm_0110 $1ymm_0110;\nmov $3ymm_0111 $2ymm_0111;\nmov $3ymm_1000 $1ymm_1000;\nmov $3ymm_1001 $2ymm_1001;\nmov $3ymm_1010 $1ymm_1010;\nmov $3ymm_1011 $2ymm_1011;\nmov $3ymm_1100 $1ymm_1100;\nmov $3ymm_1101 $2ymm_1101;\nmov $3ymm_1110 $1ymm_1110;\nmov $3ymm_1111 $2ymm_1111
+
+#! vpsrld \$0x10, $1ymm, $2ymm -> mov $2ymm_0000 $1ymm_0001;\nmov $2ymm_0001 0@sint16;\nmov $2ymm_0010 $1ymm_0011;\nmov $2ymm_0011 0@sint16;\nmov $2ymm_0100 $1ymm_0101;\nmov $2ymm_0101 0@sint16;\nmov $2ymm_0110 $1ymm_0111;\nmov $2ymm_0111 0@sint16;\nmov $2ymm_1000 $1ymm_1001;\nmov $2ymm_1001 0@sint16;\nmov $2ymm_1010 $1ymm_1011;\nmov $2ymm_1011 0@int16;\nmov $2ymm_1100 $1ymm_1101;\nmov $2ymm_1101 0@sint16;\nmov $2ymm_1110 $1ymm_1111;\nmov $2ymm_1111 0@sint16
+
+#! vpxor $2ymm, $2ymm, $1ymm -> mov $1ymm_0000 0@sint16;\nmov $1ymm_0001 0@sint16;\nmov $1ymm_0010 0@sint16;\nmov $1ymm_0011 0@sint16;\nmov $1ymm_0100 0@sint16;\nmov $1ymm_0101 0@sint16;\nmov $1ymm_0110 0@sint16;\nmov $1ymm_0111 0@sint16;\nmov $1ymm_1000 0@sint16;\nmov $1ymm_1001 0@sint16;\nmov $1ymm_1010 0@sint16;\nmov $1ymm_1011 0@sint16;\nmov $1ymm_1100 0@sint16;\nmov $1ymm_1101 0@sint16;\nmov $1ymm_1110 0@sint16;\nmov $1ymm_1111 0@sint16
+
+#! vpackusdw $1ymm, $2ymm, $3ymm -> assert true && $1ymm_0001 = 0@16;\nassert true && $1ymm_0011 = 0@16;\nassert true && $1ymm_0101 = 0@16;\nassert true && $1ymm_0111 = 0@16;\nassert true && $1ymm_1001 = 0@16;\nassert true && $1ymm_1011 = 0@16;\nassert true && $1ymm_1101 = 0@16;\nassert true && $1ymm_1111 = 0@16;\nassert true && $2ymm_0001 = 0@16;\nassert true && $2ymm_0011 = 0@16;\nassert true && $2ymm_0101 = 0@16;\nassert true && $2ymm_0111 = 0@16;\nassert true && $2ymm_1001 = 0@16;\nassert true && $2ymm_1011 = 0@16;\nassert true && $2ymm_1101 = 0@16;\nassert true && $2ymm_1111 = 0@16;\nmov tmp_0000 $2ymm_0000;\nmov tmp_0001 $2ymm_0010;\nmov tmp_0010 $2ymm_0100;\nmov tmp_0011 $2ymm_0110;\nmov tmp_0100 $1ymm_0000;\nmov tmp_0101 $1ymm_0010;\nmov tmp_0110 $1ymm_0100;\nmov tmp_0111 $1ymm_0110;\nmov tmp_1000 $2ymm_1000;\nmov tmp_1001 $2ymm_1010;\nmov tmp_1010 $2ymm_1100;\nmov tmp_1011 $2ymm_1110;\nmov tmp_1100 $1ymm_1000;\nmov tmp_1101 $1ymm_1010;\nmov tmp_1110 $1ymm_1100;\nmov tmp_1111 $1ymm_1110;\nmov $3ymm_0000 tmp_0000;\nmov $3ymm_0001 tmp_0001;\nmov $3ymm_0010 tmp_0010;\nmov $3ymm_0011 tmp_0011;\nmov $3ymm_0100 tmp_0100;\nmov $3ymm_0101 tmp_0101;\nmov $3ymm_0110 tmp_0110;\nmov $3ymm_0111 tmp_0111;\nmov $3ymm_1000 tmp_1000;\nmov $3ymm_1001 tmp_1001;\nmov $3ymm_1010 tmp_1010;\nmov $3ymm_1011 tmp_1011;\nmov $3ymm_1100 tmp_1100;\nmov $3ymm_1101 tmp_1101;\nmov $3ymm_1110 tmp_1110;\nmov $3ymm_1111 tmp_1111
+
+#! vpmullw $1ymm, $2ymm, $3ymm -> smull $3ymm_0000h $3ymm_0000l $1ymm_0000 $2ymm_0000;\ncast $3ymm_0000@sint16 $3ymm_0000l;\nsmull $3ymm_0001h $3ymm_0001l $1ymm_0001 $2ymm_0001;\ncast $3ymm_0001@sint16 $3ymm_0001l;\nsmull $3ymm_0010h $3ymm_0010l $1ymm_0010 $2ymm_0010;\ncast $3ymm_0010@sint16 $3ymm_0010l;\nsmull $3ymm_0011h $3ymm_0011l $1ymm_0011 $2ymm_0011;\ncast $3ymm_0011@sint16 $3ymm_0011l;\nsmull $3ymm_0100h $3ymm_0100l $1ymm_0100 $2ymm_0100;\ncast $3ymm_0100@sint16 $3ymm_0100l;\nsmull $3ymm_0101h $3ymm_0101l $1ymm_0101 $2ymm_0101;\ncast $3ymm_0101@sint16 $3ymm_0101l;\nsmull $3ymm_0110h $3ymm_0110l $1ymm_0110 $2ymm_0110;\ncast $3ymm_0110@sint16 $3ymm_0110l;\nsmull $3ymm_0111h $3ymm_0111l $1ymm_0111 $2ymm_0111;\ncast $3ymm_0111@sint16 $3ymm_0111l;\nsmull $3ymm_1000h $3ymm_1000l $1ymm_1000 $2ymm_1000;\ncast $3ymm_1000@sint16 $3ymm_1000l;\nsmull $3ymm_1001h $3ymm_1001l $1ymm_1001 $2ymm_1001;\ncast $3ymm_1001@sint16 $3ymm_1001l;\nsmull $3ymm_1010h $3ymm_1010l $1ymm_1010 $2ymm_1010;\ncast $3ymm_1010@sint16 $3ymm_1010l;\nsmull $3ymm_1011h $3ymm_1011l $1ymm_1011 $2ymm_1011;\ncast $3ymm_1011@sint16 $3ymm_1011l;\nsmull $3ymm_1100h $3ymm_1100l $1ymm_1100 $2ymm_1100;\ncast $3ymm_1100@sint16 $3ymm_1100l;\nsmull $3ymm_1101h $3ymm_1101l $1ymm_1101 $2ymm_1101;\ncast $3ymm_1101@sint16 $3ymm_1101l;\nsmull $3ymm_1110h $3ymm_1110l $1ymm_1110 $2ymm_1110;\ncast $3ymm_1110@sint16 $3ymm_1110l;\nsmull $3ymm_1111h $3ymm_1111l $1ymm_1111 $2ymm_1111;\ncast $3ymm_1111@sint16 $3ymm_1111l
+
+#! vpmulhw $1ymm, $2ymm, $3ymm -> smull $3ymm_0000 $3ymm_0000L $1ymm_0000 $2ymm_0000;\nsmull $3ymm_0001 $3ymm_0001L $1ymm_0001 $2ymm_0001;\nsmull $3ymm_0010 $3ymm_0010L $1ymm_0010 $2ymm_0010;\nsmull $3ymm_0011 $3ymm_0011L $1ymm_0011 $2ymm_0011;\nsmull $3ymm_0100 $3ymm_0100L $1ymm_0100 $2ymm_0100;\nsmull $3ymm_0101 $3ymm_0101L $1ymm_0101 $2ymm_0101;\nsmull $3ymm_0110 $3ymm_0110L $1ymm_0110 $2ymm_0110;\nsmull $3ymm_0111 $3ymm_0111L $1ymm_0111 $2ymm_0111;\nsmull $3ymm_1000 $3ymm_1000L $1ymm_1000 $2ymm_1000;\nsmull $3ymm_1001 $3ymm_1001L $1ymm_1001 $2ymm_1001;\nsmull $3ymm_1010 $3ymm_1010L $1ymm_1010 $2ymm_1010;\nsmull $3ymm_1011 $3ymm_1011L $1ymm_1011 $2ymm_1011;\nsmull $3ymm_1100 $3ymm_1100L $1ymm_1100 $2ymm_1100;\nsmull $3ymm_1101 $3ymm_1101L $1ymm_1101 $2ymm_1101;\nsmull $3ymm_1110 $3ymm_1110L $1ymm_1110 $2ymm_1110;\nsmull $3ymm_1111 $3ymm_1111L $1ymm_1111 $2ymm_1111
+
+#! vpsubw $1ymm, $2ymm, $3ymm -> sub $3ymm_0000 $2ymm_0000 $1ymm_0000;\nsub $3ymm_0001 $2ymm_0001 $1ymm_0001;\nsub $3ymm_0010 $2ymm_0010 $1ymm_0010;\nsub $3ymm_0011 $2ymm_0011 $1ymm_0011;\nsub $3ymm_0100 $2ymm_0100 $1ymm_0100;\nsub $3ymm_0101 $2ymm_0101 $1ymm_0101;\nsub $3ymm_0110 $2ymm_0110 $1ymm_0110;\nsub $3ymm_0111 $2ymm_0111 $1ymm_0111;\nsub $3ymm_1000 $2ymm_1000 $1ymm_1000;\nsub $3ymm_1001 $2ymm_1001 $1ymm_1001;\nsub $3ymm_1010 $2ymm_1010 $1ymm_1010;\nsub $3ymm_1011 $2ymm_1011 $1ymm_1011;\nsub $3ymm_1100 $2ymm_1100 $1ymm_1100;\nsub $3ymm_1101 $2ymm_1101 $1ymm_1101;\nsub $3ymm_1110 $2ymm_1110 $1ymm_1110;\nsub $3ymm_1111 $2ymm_1111 $1ymm_1111
+
+# basemul_red:
+# %rdi = 0x7fffffffd870
+# %rsi = 0x7fffffffd8b0
+# %rdx = 0x7fffffffd8f0
+# %rcx = 0x7fffffffd930
+# %r8  = 0x0
+# %r9  = 0x7ffff7fe0d50
+	#! -> SP = 0x7fffffffd868
+	vmovdqu (%rsi),%ymm2                            #! EA = L0x7fffffffd8b0; Value = 0x0000038000000380; PC = 0x5555555551c0
+	vmovdqu 0x20(%rsi),%ymm3                        #! EA = L0x7fffffffd8d0; Value = 0x0000000000000000; PC = 0x5555555551c4
+	vmovdqu (%rdx),%ymm4                            #! EA = L0x7fffffffd8f0; Value = 0x0000000000000000; PC = 0x5555555551c9
+	vmovdqu 0x20(%rdx),%ymm5                        #! EA = L0x7fffffffd910; Value = 0x0000000000000000; PC = 0x5555555551cd
+	vmovdqu (%rcx),%ymm0                            #! EA = L0x7fffffffd930; Value = 0x00000000000000c2; PC = 0x5555555551d2
+	vmovdqu 0x20(%rcx),%ymm1                        #! EA = L0x7fffffffd950; Value = 0x00007ffff7fa72e8; PC = 0x5555555551d6
+	vpxor  %ymm6,%ymm6,%ymm6                        #! PC = 0x5555555551db
+	vpblendw $0xaa,%ymm6,%ymm2,%ymm7                #! PC = 0x5555555551df
+	vpblendw $0xaa,%ymm6,%ymm3,%ymm8                #! PC = 0x5555555551e5
+	vpsrld $0x10,%ymm2,%ymm2                        #! PC = 0x5555555551eb
+	vpsrld $0x10,%ymm3,%ymm3                        #! PC = 0x5555555551f0
+	vpackusdw %ymm8,%ymm7,%ymm7                     #! PC = 0x5555555551f5
+	vpackusdw %ymm3,%ymm2,%ymm2                     #! PC = 0x5555555551fa
+	vpblendw $0xaa,%ymm6,%ymm4,%ymm3                #! PC = 0x5555555551ff
+	vpblendw $0xaa,%ymm6,%ymm5,%ymm6                #! PC = 0x555555555205
+	vpsrld $0x10,%ymm4,%ymm4                        #! PC = 0x55555555520b
+	vpsrld $0x10,%ymm5,%ymm5                        #! PC = 0x555555555210
+	vpackusdw %ymm6,%ymm3,%ymm3                     #! PC = 0x555555555215
+	vpackusdw %ymm5,%ymm4,%ymm4                     #! PC = 0x55555555521a
+	vpmullw %ymm1,%ymm7,%ymm5                       #! PC = 0x55555555521f
+	vpmullw %ymm1,%ymm3,%ymm1                       #! PC = 0x555555555223
+	vpmulhw %ymm0,%ymm5,%ymm3                       #! PC = 0x555555555227
+	vpmulhw %ymm0,%ymm1,%ymm0                       #! PC = 0x55555555522b
+	vpsubw %ymm3,%ymm2,%ymm1                        #! PC = 0x55555555522f
+	vpsubw %ymm0,%ymm4,%ymm0                        #! PC = 0x555555555233
+	vmovdqu %ymm1,(%rdi)                            #! EA = L0x7fffffffd870; PC = 0x555555555237
+	vmovdqu %ymm0,0x20(%rdi)                        #! EA = L0x7fffffffd890; PC = 0x55555555523b
+	#! <- SP = 0x7fffffffd868
+	#retq                                           #! PC = 0x555555555240
