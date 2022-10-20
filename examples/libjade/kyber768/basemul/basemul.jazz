@@ -1,0 +1,47 @@
+inline fn __basemul_red(reg u256 a0 a1 b0 b1 qx16 qinvx16) -> reg u256, reg u256
+{
+  reg u256 zero x y z;
+
+  zero = #set0_256();
+  y = #VPBLEND_16u16(a0,zero,0xAA);
+  z = #VPBLEND_16u16(a1,zero,0xAA);
+  a0 = #VPSRL_8u32(a0,16);
+  a1 = #VPSRL_8u32(a1,16);
+  z = #VPACKUS_8u32(y, z);
+  a0 = #VPACKUS_8u32(a0, a1);
+
+  y = #VPBLEND_16u16(b0,zero,0xAA);
+  x = #VPBLEND_16u16(b1,zero,0xAA);
+  b0 = #VPSRL_8u32(b0,16);
+  b1 = #VPSRL_8u32(b1,16);
+  y = #VPACKUS_8u32(y, x);
+  b0 = #VPACKUS_8u32(b0, b1);
+
+  z  = #VPMULL_16u16(z, qinvx16);
+  y  = #VPMULL_16u16(y, qinvx16);
+  z  = #VPMULH_16u16(z, qx16);
+  y  = #VPMULH_16u16(y, qx16);
+  a0 = #VPSUB_16u16(a0, z);
+  b0 = #VPSUB_16u16(b0, y);
+
+  return a0, b0;
+}
+
+export fn basemul_red(reg u64 rp ap bp qp)
+{
+  reg u256 a0 a1 b0 b1 qx16 qinvx16;
+
+  a0 = (u256)[ap + 32*0];
+  a1 = (u256)[ap + 32*1];
+
+  b0 = (u256)[bp + 32*0];
+  b1 = (u256)[bp + 32*1];
+
+  qx16 = (u256)[qp + 32*0];
+  qinvx16 = (u256)[qp + 32*1];
+
+  a0, b0 = __basemul_red(a0, a1, b0, b1, qx16, qinvx16);
+
+  (u256)[rp + 32*0] = a0;
+  (u256)[rp + 32*1] = b0;
+}
