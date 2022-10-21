@@ -1,10 +1,3 @@
-/*
- h0 + h1 + h2 * r0 + r1
-
- h0 * r0
- h1 * r1
-*/
-
 inline fn __mulmod(reg u64[3] h r) -> reg u64[3]
 {
   reg bool cf;
@@ -41,8 +34,6 @@ inline fn __mulmod(reg u64[3] h r) -> reg u64[3]
   cf, t0 += t2;
   cf, t1 += rax + cf;
   _ , h[2] += rdx + cf;
-
-  // eqmod [t0, t1, h2] ([h0, h1, h2] * [r0,r1])
 
   h[0] = 0xfffffffffffffffc;
     t2 = h[2]; 

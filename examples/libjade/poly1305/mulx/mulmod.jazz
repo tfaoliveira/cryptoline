@@ -1,0 +1,86 @@
+//@cldefine chk0 cf : assert true && cf=0@1; assume cf=0 && true; // this could be auto
+
+/*@clpre
+  4 * r[2] = 5 * r[1]
+  &&
+  and [ r[0] < (0x0ffffffc0fffffff)@64,
+        r[1] < (0x0ffffffc0ffffffc)@64,
+        4@64 * r[2] = 5@64 * r1,
+        r[2] <= ((2**58 - 2**32 + 2**26 - 1) * 5)@64,
+        h[2] <= 6@64]
+*/
+inline fn __mulmod(reg u64[3] h r) -> reg u64[3]
+{
+  reg bool cf;
+  reg u64[3] t;
+  reg u64 h0 h1 l0 l1 rdx;
+
+  // ////////////////////////
+                                            cf, rdx = h[0]; //@cl chk0 cf;
+                                            cf, h0  = h[2]; //@cl chk0 cf;   // < 7
+        h0         *= r[2];                                                  // < 2**63   // 0x77ffffe277ffffe2
+        h1,   t[0]  = #MULX ( rdx, r[0] );                                   // < 2**124  // 0x0ffffffc_0ffffffe, 2**64-1
+  t[2], t[1]        = #MULX ( rdx, r[1] );                                   // < 2**124  // 0x0ffffffc_0ffffffb, 2**64-1
+  h[2]             *= r[0];                                                  // < 2**63   // 0x5fffffe85ffffffa
+                                            cf, h[2] += t[2]; //@cl chk0 cf; // < 2**63   // 0x6fffffe46ffffff5
+                                            cf, h0   += h1;   //@cl chk0 cf; // < 2**64   // 0x87ffffde87ffffe0
+                                            cf, rdx   = h[1]; //@cl chk0 cf;
+        h[1], l0    = #MULX ( rdx, r[2] );                    // < 2**125  // 0x13fffffb_13fffffa, 2**64-1
+  t[2], l1          = #MULX ( rdx, r[0] );                    // < 2**124  // 0x0ffffffc_0ffffffe, 2**64-1
+
+  // ////////////////////////
+  // h[2]  h[1]
+  //       h0
+  // t[2]  t[1]  t[0]
+  //       l1    l0
+
+  cf , h[1] += h0; //@cl chk0 cf;                             // < 2**64   // 0x8bffffdd8bffffdc
+  cf, t[0] += l0;
+  cf, h[1] += t[1] + cf;
+  cf, h[2] += t[2] + cf;
+  //@cl chk0 cf;
+
+  h[0] = 0xfffffffffffffffc;
+  t[2] = h[2];
+  h[0] &= h[2];
+  t[2] >>= 2;
+  h[2] &= 0x3;
+
+  _ , h[0] += t[2]; //@cl chk0 cf;
+  cf, h[0] += t[0];
+  cf, h[1] += l1 + cf;
+  _ , h[2] +=  0 + cf;
+  //@cl chk0 cf;
+
+  return h;
+
+/*@cl
+  eqmod (limbs 64 [h[0], h[1], h[2]])
+        (limbs 64 [h'[0], h'[1], h'[2]] * limbs 64 [r[0], r[1]])
+        ((2**130)-5)
+  &&
+  true
+*/
+}
+
+//
+
+export fn mulmod(reg u64 hp rp)
+{
+  inline int i;
+  reg u64[3] h r;
+  stack u64 hps;
+
+  for i=0 to 3
+  { h[i] = [hp + 8*i];
+    r[i] = [rp + 8*i];
+  }
+  hps = hp;
+
+  h = __mulmod(h, r);
+
+  hp = hps;
+  for i=0 to 3
+  { [hp + 8*i] = h[i]; }
+}
+
