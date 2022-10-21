@@ -24,7 +24,9 @@ proc main (
 {
   true
   &&
-  true
+  and[
+    limbs 16 [0@16, (-3329)@16] < limbs 16 [a0_0, a0_1], limbs 16 [a0_0, a0_1] < limbs 16 [0@16, 3329@16]
+  ]
 }
 
 (** ******************************************** **)
@@ -114,22 +116,22 @@ mov L0x7fffffffd94a 3329@sint16;
 mov L0x7fffffffd94c 3329@sint16;
 mov L0x7fffffffd94e 3329@sint16;
 
-mov L0x7fffffffd950 62209@sint16; (** TODO : CHECK THIS INIT : @ ntt fast cl we can find mov ... (-3327)@sint16; **)
-mov L0x7fffffffd952 62209@sint16; 
-mov L0x7fffffffd954 62209@sint16; 
-mov L0x7fffffffd956 62209@sint16; 
-mov L0x7fffffffd958 62209@sint16; 
-mov L0x7fffffffd95a 62209@sint16; 
-mov L0x7fffffffd95c 62209@sint16; 
-mov L0x7fffffffd95e 62209@sint16; 
-mov L0x7fffffffd960 62209@sint16; 
-mov L0x7fffffffd962 62209@sint16; 
-mov L0x7fffffffd964 62209@sint16; 
-mov L0x7fffffffd966 62209@sint16; 
-mov L0x7fffffffd968 62209@sint16; 
-mov L0x7fffffffd96a 62209@sint16; 
-mov L0x7fffffffd96c 62209@sint16; 
-mov L0x7fffffffd96e 62209@sint16; 
+mov L0x7fffffffd950 (-3327)@sint16;
+mov L0x7fffffffd952 (-3327)@sint16; 
+mov L0x7fffffffd954 (-3327)@sint16; 
+mov L0x7fffffffd956 (-3327)@sint16; 
+mov L0x7fffffffd958 (-3327)@sint16; 
+mov L0x7fffffffd95a (-3327)@sint16; 
+mov L0x7fffffffd95c (-3327)@sint16; 
+mov L0x7fffffffd95e (-3327)@sint16; 
+mov L0x7fffffffd960 (-3327)@sint16; 
+mov L0x7fffffffd962 (-3327)@sint16; 
+mov L0x7fffffffd964 (-3327)@sint16; 
+mov L0x7fffffffd966 (-3327)@sint16; 
+mov L0x7fffffffd968 (-3327)@sint16; 
+mov L0x7fffffffd96a (-3327)@sint16; 
+mov L0x7fffffffd96c (-3327)@sint16; 
+mov L0x7fffffffd96e (-3327)@sint16; 
 
 (** ******************************************** **)
 (** c&p from basemul_red.cl.0 **)
@@ -688,39 +690,39 @@ smull ymm0_1101 ymm0_1101L ymm0_1101 ymm1_1101;
 smull ymm0_1110 ymm0_1110L ymm0_1110 ymm1_1110;
 smull ymm0_1111 ymm0_1111L ymm0_1111 ymm1_1111;
 (* vpsubw %ymm3,%ymm2,%ymm1                        #! PC = 0x55555555522f *)
-sub ymm1_0000 ymm2_0000 ymm3_0000;
-sub ymm1_0001 ymm2_0001 ymm3_0001;
-sub ymm1_0010 ymm2_0010 ymm3_0010;
-sub ymm1_0011 ymm2_0011 ymm3_0011;
-sub ymm1_0100 ymm2_0100 ymm3_0100;
-sub ymm1_0101 ymm2_0101 ymm3_0101;
-sub ymm1_0110 ymm2_0110 ymm3_0110;
-sub ymm1_0111 ymm2_0111 ymm3_0111;
-sub ymm1_1000 ymm2_1000 ymm3_1000;
-sub ymm1_1001 ymm2_1001 ymm3_1001;
-sub ymm1_1010 ymm2_1010 ymm3_1010;
-sub ymm1_1011 ymm2_1011 ymm3_1011;
-sub ymm1_1100 ymm2_1100 ymm3_1100;
-sub ymm1_1101 ymm2_1101 ymm3_1101;
-sub ymm1_1110 ymm2_1110 ymm3_1110;
-sub ymm1_1111 ymm2_1111 ymm3_1111;
+subb dc ymm1_0000 ymm2_0000 ymm3_0000;
+subb dc ymm1_0001 ymm2_0001 ymm3_0001;
+subb dc ymm1_0010 ymm2_0010 ymm3_0010;
+subb dc ymm1_0011 ymm2_0011 ymm3_0011;
+subb dc ymm1_0100 ymm2_0100 ymm3_0100;
+subb dc ymm1_0101 ymm2_0101 ymm3_0101;
+subb dc ymm1_0110 ymm2_0110 ymm3_0110;
+subb dc ymm1_0111 ymm2_0111 ymm3_0111;
+subb dc ymm1_1000 ymm2_1000 ymm3_1000;
+subb dc ymm1_1001 ymm2_1001 ymm3_1001;
+subb dc ymm1_1010 ymm2_1010 ymm3_1010;
+subb dc ymm1_1011 ymm2_1011 ymm3_1011;
+subb dc ymm1_1100 ymm2_1100 ymm3_1100;
+subb dc ymm1_1101 ymm2_1101 ymm3_1101;
+subb dc ymm1_1110 ymm2_1110 ymm3_1110;
+subb dc ymm1_1111 ymm2_1111 ymm3_1111;
 (* vpsubw %ymm0,%ymm4,%ymm0                        #! PC = 0x555555555233 *)
-sub ymm0_0000 ymm4_0000 ymm0_0000;
-sub ymm0_0001 ymm4_0001 ymm0_0001;
-sub ymm0_0010 ymm4_0010 ymm0_0010;
-sub ymm0_0011 ymm4_0011 ymm0_0011;
-sub ymm0_0100 ymm4_0100 ymm0_0100;
-sub ymm0_0101 ymm4_0101 ymm0_0101;
-sub ymm0_0110 ymm4_0110 ymm0_0110;
-sub ymm0_0111 ymm4_0111 ymm0_0111;
-sub ymm0_1000 ymm4_1000 ymm0_1000;
-sub ymm0_1001 ymm4_1001 ymm0_1001;
-sub ymm0_1010 ymm4_1010 ymm0_1010;
-sub ymm0_1011 ymm4_1011 ymm0_1011;
-sub ymm0_1100 ymm4_1100 ymm0_1100;
-sub ymm0_1101 ymm4_1101 ymm0_1101;
-sub ymm0_1110 ymm4_1110 ymm0_1110;
-sub ymm0_1111 ymm4_1111 ymm0_1111;
+subb dc ymm0_0000 ymm4_0000 ymm0_0000;
+subb dc ymm0_0001 ymm4_0001 ymm0_0001;
+subb dc ymm0_0010 ymm4_0010 ymm0_0010;
+subb dc ymm0_0011 ymm4_0011 ymm0_0011;
+subb dc ymm0_0100 ymm4_0100 ymm0_0100;
+subb dc ymm0_0101 ymm4_0101 ymm0_0101;
+subb dc ymm0_0110 ymm4_0110 ymm0_0110;
+subb dc ymm0_0111 ymm4_0111 ymm0_0111;
+subb dc ymm0_1000 ymm4_1000 ymm0_1000;
+subb dc ymm0_1001 ymm4_1001 ymm0_1001;
+subb dc ymm0_1010 ymm4_1010 ymm0_1010;
+subb dc ymm0_1011 ymm4_1011 ymm0_1011;
+subb dc ymm0_1100 ymm4_1100 ymm0_1100;
+subb dc ymm0_1101 ymm4_1101 ymm0_1101;
+subb dc ymm0_1110 ymm4_1110 ymm0_1110;
+subb dc ymm0_1111 ymm4_1111 ymm0_1111;
 (* vmovdqu %ymm1,(%rdi)                            #! EA = L0x7fffffffd870; PC = 0x555555555237 *)
 mov L0x7fffffffd870 ymm1_0000;
 mov L0x7fffffffd872 ymm1_0001;
@@ -797,8 +799,75 @@ mov r1_14 L0x7fffffffd8ac;
 mov r1_15 L0x7fffffffd8ae;
 
 {
-  true
+  and [
+    eqmod (r0_0  * 169) (limbs 16 [a0_0,  a0_1])  3329,
+    eqmod (r0_1  * 169) (limbs 16 [a0_2,  a0_3])  3329,
+    eqmod (r0_2  * 169) (limbs 16 [a0_4,  a0_5])  3329,
+    eqmod (r0_3  * 169) (limbs 16 [a0_6,  a0_7])  3329,
+    eqmod (r0_4  * 169) (limbs 16 [a0_8,  a0_9])  3329,
+    eqmod (r0_5  * 169) (limbs 16 [a0_10, a0_11]) 3329,
+    eqmod (r0_6  * 169) (limbs 16 [a0_12, a0_13]) 3329,
+    eqmod (r0_7  * 169) (limbs 16 [a0_14, a0_15]) 3329,
+    eqmod (r0_8  * 169) (limbs 16 [a1_0,  a1_1])  3329,
+    eqmod (r0_9  * 169) (limbs 16 [a1_2,  a1_3])  3329,
+    eqmod (r0_10 * 169) (limbs 16 [a1_4,  a1_5])  3329,
+    eqmod (r0_11 * 169) (limbs 16 [a1_6,  a1_7])  3329,
+    eqmod (r0_12 * 169) (limbs 16 [a1_8,  a1_9])  3329,
+    eqmod (r0_13 * 169) (limbs 16 [a1_10, a1_11]) 3329,
+    eqmod (r0_14 * 169) (limbs 16 [a1_12, a1_13]) 3329,
+    eqmod (r0_15 * 169) (limbs 16 [a1_14, a1_15]) 3329,
+    eqmod (r1_0  * 169) (limbs 16 [b0_0,  b0_1])  3329,
+    eqmod (r1_1  * 169) (limbs 16 [b0_2,  b0_3])  3329,
+    eqmod (r1_2  * 169) (limbs 16 [b0_4,  b0_5])  3329,
+    eqmod (r1_3  * 169) (limbs 16 [b0_6,  b0_7])  3329,
+    eqmod (r1_4  * 169) (limbs 16 [b0_8,  b0_9])  3329,
+    eqmod (r1_5  * 169) (limbs 16 [b0_10, b0_11]) 3329,
+    eqmod (r1_6  * 169) (limbs 16 [b0_12, b0_13]) 3329,
+    eqmod (r1_7  * 169) (limbs 16 [b0_14, b0_15]) 3329,
+    eqmod (r1_8  * 169) (limbs 16 [b1_0,  b1_1])  3329,
+    eqmod (r1_9  * 169) (limbs 16 [b1_2,  b1_3])  3329,
+    eqmod (r1_10 * 169) (limbs 16 [b1_4,  b1_5])  3329,
+    eqmod (r1_11 * 169) (limbs 16 [b1_6,  b1_7])  3329,
+    eqmod (r1_12 * 169) (limbs 16 [b1_8,  b1_9])  3329,
+    eqmod (r1_13 * 169) (limbs 16 [b1_10, b1_11]) 3329,
+    eqmod (r1_14 * 169) (limbs 16 [b1_12, b1_13]) 3329,
+    eqmod (r1_15 * 169) (limbs 16 [b1_14, b1_15]) 3329
+  ]
   &&
-  true
+  and [
+    (-3329)@16 <s r0_0,  r0_0  <s (3329)@16,
+    (-3329)@16 <s r0_1,  r0_1  <s (3329)@16,
+    (-3329)@16 <s r0_2,  r0_2  <s (3329)@16,
+    (-3329)@16 <s r0_3,  r0_3  <s (3329)@16,
+    (-3329)@16 <s r0_4,  r0_4  <s (3329)@16,
+    (-3329)@16 <s r0_5,  r0_5  <s (3329)@16,
+    (-3329)@16 <s r0_6,  r0_6  <s (3329)@16,
+    (-3329)@16 <s r0_7,  r0_7  <s (3329)@16,
+    (-3329)@16 <s r0_8,  r0_8  <s (3329)@16,
+    (-3329)@16 <s r0_9,  r0_9  <s (3329)@16,
+    (-3329)@16 <s r0_10, r0_10 <s (3329)@16,
+    (-3329)@16 <s r0_11, r0_11 <s (3329)@16,
+    (-3329)@16 <s r0_12, r0_12 <s (3329)@16,
+    (-3329)@16 <s r0_13, r0_13 <s (3329)@16,
+    (-3329)@16 <s r0_14, r0_14 <s (3329)@16,
+    (-3329)@16 <s r0_15, r0_15 <s (3329)@16,
+
+    (-3329)@16 <s r1_0,  r1_0  <s (3329)@16,
+    (-3329)@16 <s r1_1,  r1_1  <s (3329)@16,
+    (-3329)@16 <s r1_2,  r1_2  <s (3329)@16,
+    (-3329)@16 <s r1_3,  r1_3  <s (3329)@16,
+    (-3329)@16 <s r1_4,  r1_4  <s (3329)@16,
+    (-3329)@16 <s r1_5,  r1_5  <s (3329)@16,
+    (-3329)@16 <s r1_6,  r1_6  <s (3329)@16,
+    (-3329)@16 <s r1_7,  r1_7  <s (3329)@16,
+    (-3329)@16 <s r1_8,  r1_8  <s (3329)@16,
+    (-3329)@16 <s r1_9,  r1_9  <s (3329)@16,
+    (-3329)@16 <s r1_10, r1_10 <s (3329)@16,
+    (-3329)@16 <s r1_11, r1_11 <s (3329)@16,
+    (-3329)@16 <s r1_12, r1_12 <s (3329)@16,
+    (-3329)@16 <s r1_13, r1_13 <s (3329)@16,
+    (-3329)@16 <s r1_14, r1_14 <s (3329)@16,
+    (-3329)@16 <s r1_15, r1_15 <s (3329)@16
+  ]
 }
 
