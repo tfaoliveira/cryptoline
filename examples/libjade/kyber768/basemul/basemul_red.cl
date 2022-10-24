@@ -833,40 +833,41 @@ mov r1_14 L0x7fffffffd8ac;
 mov r1_15 L0x7fffffffd8ae;
 
 {
-  and [
-    eqmod (r0_0  * 169) (limbs 16 [a0_0,  a0_1])  3329,
-    eqmod (r0_1  * 169) (limbs 16 [a0_2,  a0_3])  3329,
-    eqmod (r0_2  * 169) (limbs 16 [a0_4,  a0_5])  3329,
-    eqmod (r0_3  * 169) (limbs 16 [a0_6,  a0_7])  3329,
-    eqmod (r0_4  * 169) (limbs 16 [a0_8,  a0_9])  3329,
-    eqmod (r0_5  * 169) (limbs 16 [a0_10, a0_11]) 3329,
-    eqmod (r0_6  * 169) (limbs 16 [a0_12, a0_13]) 3329,
-    eqmod (r0_7  * 169) (limbs 16 [a0_14, a0_15]) 3329,
-    eqmod (r0_8  * 169) (limbs 16 [a1_0,  a1_1])  3329,
-    eqmod (r0_9  * 169) (limbs 16 [a1_2,  a1_3])  3329,
-    eqmod (r0_10 * 169) (limbs 16 [a1_4,  a1_5])  3329,
-    eqmod (r0_11 * 169) (limbs 16 [a1_6,  a1_7])  3329,
-    eqmod (r0_12 * 169) (limbs 16 [a1_8,  a1_9])  3329,
-    eqmod (r0_13 * 169) (limbs 16 [a1_10, a1_11]) 3329,
-    eqmod (r0_14 * 169) (limbs 16 [a1_12, a1_13]) 3329,
-    eqmod (r0_15 * 169) (limbs 16 [a1_14, a1_15]) 3329,
-    eqmod (r1_0  * 169) (limbs 16 [b0_0,  b0_1])  3329,
-    eqmod (r1_1  * 169) (limbs 16 [b0_2,  b0_3])  3329,
-    eqmod (r1_2  * 169) (limbs 16 [b0_4,  b0_5])  3329,
-    eqmod (r1_3  * 169) (limbs 16 [b0_6,  b0_7])  3329,
-    eqmod (r1_4  * 169) (limbs 16 [b0_8,  b0_9])  3329,
-    eqmod (r1_5  * 169) (limbs 16 [b0_10, b0_11]) 3329,
-    eqmod (r1_6  * 169) (limbs 16 [b0_12, b0_13]) 3329,
-    eqmod (r1_7  * 169) (limbs 16 [b0_14, b0_15]) 3329,
-    eqmod (r1_8  * 169) (limbs 16 [b1_0,  b1_1])  3329,
-    eqmod (r1_9  * 169) (limbs 16 [b1_2,  b1_3])  3329,
-    eqmod (r1_10 * 169) (limbs 16 [b1_4,  b1_5])  3329,
-    eqmod (r1_11 * 169) (limbs 16 [b1_6,  b1_7])  3329,
-    eqmod (r1_12 * 169) (limbs 16 [b1_8,  b1_9])  3329,
-    eqmod (r1_13 * 169) (limbs 16 [b1_10, b1_11]) 3329,
-    eqmod (r1_14 * 169) (limbs 16 [b1_12, b1_13]) 3329,
-    eqmod (r1_15 * 169) (limbs 16 [b1_14, b1_15]) 3329
-  ]
+(*  and [*)
+(*    eqsmod (r0_0  * 169) (limbs 16 [a0_0,  a0_1])  3329,*)
+(*    eqsmod (r0_1  * 169) (limbs 16 [a0_2,  a0_3])  3329,*)
+(*    eqsmod (r0_2  * 169) (limbs 16 [a0_4,  a0_5])  3329,*)
+(*    eqsmod (r0_3  * 169) (limbs 16 [a0_6,  a0_7])  3329,*)
+(*    eqsmod (r0_4  * 169) (limbs 16 [a0_8,  a0_9])  3329,*)
+(*    eqsmod (r0_5  * 169) (limbs 16 [a0_10, a0_11]) 3329,*)
+(*    eqsmod (r0_6  * 169) (limbs 16 [a0_12, a0_13]) 3329,*)
+(*    eqsmod (r0_7  * 169) (limbs 16 [a0_14, a0_15]) 3329,*)
+(*    eqsmod (r0_8  * 169) (limbs 16 [a1_0,  a1_1])  3329,*)
+(*    eqsmod (r0_9  * 169) (limbs 16 [a1_2,  a1_3])  3329,*)
+(*    eqsmod (r0_10 * 169) (limbs 16 [a1_4,  a1_5])  3329,*)
+(*    eqsmod (r0_11 * 169) (limbs 16 [a1_6,  a1_7])  3329,*)
+(*    eqsmod (r0_12 * 169) (limbs 16 [a1_8,  a1_9])  3329,*)
+(*    eqsmod (r0_13 * 169) (limbs 16 [a1_10, a1_11]) 3329,*)
+(*    eqsmod (r0_14 * 169) (limbs 16 [a1_12, a1_13]) 3329,*)
+(*    eqsmod (r0_15 * 169) (limbs 16 [a1_14, a1_15]) 3329,*)
+(*    eqsmod (r1_0  * 169) (limbs 16 [b0_0,  b0_1])  3329,*)
+(*    eqsmod (r1_1  * 169) (limbs 16 [b0_2,  b0_3])  3329,*)
+(*    eqsmod (r1_2  * 169) (limbs 16 [b0_4,  b0_5])  3329,*)
+(*    eqsmod (r1_3  * 169) (limbs 16 [b0_6,  b0_7])  3329,*)
+(*    eqsmod (r1_4  * 169) (limbs 16 [b0_8,  b0_9])  3329,*)
+(*    eqsmod (r1_5  * 169) (limbs 16 [b0_10, b0_11]) 3329,*)
+(*    eqsmod (r1_6  * 169) (limbs 16 [b0_12, b0_13]) 3329,*)
+(*    eqsmod (r1_7  * 169) (limbs 16 [b0_14, b0_15]) 3329,*)
+(*    eqsmod (r1_8  * 169) (limbs 16 [b1_0,  b1_1])  3329,*)
+(*    eqsmod (r1_9  * 169) (limbs 16 [b1_2,  b1_3])  3329,*)
+(*    eqsmod (r1_10 * 169) (limbs 16 [b1_4,  b1_5])  3329,*)
+(*    eqsmod (r1_11 * 169) (limbs 16 [b1_6,  b1_7])  3329,*)
+(*    eqsmod (r1_12 * 169) (limbs 16 [b1_8,  b1_9])  3329,*)
+(*    eqsmod (r1_13 * 169) (limbs 16 [b1_10, b1_11]) 3329,*)
+(*    eqsmod (r1_14 * 169) (limbs 16 [b1_12, b1_13]) 3329,*)
+(*    eqsmod (r1_15 * 169) (limbs 16 [b1_14, b1_15]) 3329*)
+(*  ]*)
+  true
   &&
   and [
     (-3329)@16 <s r0_0,  r0_0  <s (3329)@16,
@@ -900,7 +901,41 @@ mov r1_15 L0x7fffffffd8ae;
     (-3329)@16 <s r1_12, r1_12 <s (3329)@16,
     (-3329)@16 <s r1_13, r1_13 <s (3329)@16,
     (-3329)@16 <s r1_14, r1_14 <s (3329)@16,
-    (-3329)@16 <s r1_15, r1_15 <s (3329)@16
+    (-3329)@16 <s r1_15, r1_15 <s (3329)@16,
+
+    eqsmod ( (sext r0_0  16) * 169@32) (limbs 16 [a0_0,  a0_1])  3329@32,
+    eqsmod ( (sext r0_1  16) * 169@32) (limbs 16 [a0_2,  a0_3])  3329@32,
+    eqsmod ( (sext r0_2  16) * 169@32) (limbs 16 [a0_4,  a0_5])  3329@32,
+    eqsmod ( (sext r0_3  16) * 169@32) (limbs 16 [a0_6,  a0_7])  3329@32,
+    eqsmod ( (sext r0_4  16) * 169@32) (limbs 16 [a0_8,  a0_9])  3329@32,
+    eqsmod ( (sext r0_5  16) * 169@32) (limbs 16 [a0_10, a0_11]) 3329@32,
+    eqsmod ( (sext r0_6  16) * 169@32) (limbs 16 [a0_12, a0_13]) 3329@32,
+    eqsmod ( (sext r0_7  16) * 169@32) (limbs 16 [a0_14, a0_15]) 3329@32,
+    eqsmod ( (sext r0_8  16) * 169@32) (limbs 16 [a1_0,  a1_1])  3329@32,
+    eqsmod ( (sext r0_9  16) * 169@32) (limbs 16 [a1_2,  a1_3])  3329@32,
+    eqsmod ( (sext r0_10 16) * 169@32) (limbs 16 [a1_4,  a1_5])  3329@32,
+    eqsmod ( (sext r0_11 16) * 169@32) (limbs 16 [a1_6,  a1_7])  3329@32,
+    eqsmod ( (sext r0_12 16) * 169@32) (limbs 16 [a1_8,  a1_9])  3329@32,
+    eqsmod ( (sext r0_13 16) * 169@32) (limbs 16 [a1_10, a1_11]) 3329@32,
+    eqsmod ( (sext r0_14 16) * 169@32) (limbs 16 [a1_12, a1_13]) 3329@32,
+    eqsmod ( (sext r0_15 16) * 169@32) (limbs 16 [a1_14, a1_15]) 3329@32,
+    eqsmod ( (sext r1_0  16) * 169@32) (limbs 16 [b0_0,  b0_1])  3329@32,
+    eqsmod ( (sext r1_1  16) * 169@32) (limbs 16 [b0_2,  b0_3])  3329@32,
+    eqsmod ( (sext r1_2  16) * 169@32) (limbs 16 [b0_4,  b0_5])  3329@32,
+    eqsmod ( (sext r1_3  16) * 169@32) (limbs 16 [b0_6,  b0_7])  3329@32,
+    eqsmod ( (sext r1_4  16) * 169@32) (limbs 16 [b0_8,  b0_9])  3329@32,
+    eqsmod ( (sext r1_5  16) * 169@32) (limbs 16 [b0_10, b0_11]) 3329@32,
+    eqsmod ( (sext r1_6  16) * 169@32) (limbs 16 [b0_12, b0_13]) 3329@32,
+    eqsmod ( (sext r1_7  16) * 169@32) (limbs 16 [b0_14, b0_15]) 3329@32,
+    eqsmod ( (sext r1_8  16) * 169@32) (limbs 16 [b1_0,  b1_1])  3329@32,
+    eqsmod ( (sext r1_9  16) * 169@32) (limbs 16 [b1_2,  b1_3])  3329@32,
+    eqsmod ( (sext r1_10 16) * 169@32) (limbs 16 [b1_4,  b1_5])  3329@32,
+    eqsmod ( (sext r1_11 16) * 169@32) (limbs 16 [b1_6,  b1_7])  3329@32,
+    eqsmod ( (sext r1_12 16) * 169@32) (limbs 16 [b1_8,  b1_9])  3329@32,
+    eqsmod ( (sext r1_13 16) * 169@32) (limbs 16 [b1_10, b1_11]) 3329@32,
+    eqsmod ( (sext r1_14 16) * 169@32) (limbs 16 [b1_12, b1_13]) 3329@32,
+    eqsmod ( (sext r1_15 16) * 169@32) (limbs 16 [b1_14, b1_15]) 3329@32
+
   ]
 }
 
